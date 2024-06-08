@@ -1,0 +1,75 @@
+.container {
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addButton {
+  padding: 10px;
+  background-color: var(--button);
+  color: var(--text);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+}
+
+.table td {
+  padding: 10px;
+}
+.unit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.performance {
+  color: rgb(114, 231, 78);
+  font-weight: bold;
+}
+
+.changePositive {
+  /* color: rgb(19, 217, 48); */
+  color: rgb(114, 231, 78);
+  font-weight: bold;
+}
+.changeNegative {
+  color: crimson;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+.button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  /* color: var(--text); */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.view {
+  /*   background-color: teal;
+ */
+  background-color: rgb(74, 192, 5);
+}
+
+.edit {
+  /*   background-color: teal;
+ */
+  background-color: rgb(54, 85, 197);
+}
+.delete {
+  background-color: crimson;
+}

@@ -1,0 +1,32 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bg1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 100vh;
+  background-image: url("/bg1.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: -1;
+}
+.bg2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  height: 100vh;
+  background-image: url("/bg2.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: -1;
+}
+.logo {
+  margin-bottom: 20%;
+}
