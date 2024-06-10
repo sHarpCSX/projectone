@@ -1,47 +1,61 @@
 import React from "react";
-import styles from "../../../ui/dashboard/units/singleUnit/singleUnit.module.css";
-import { fetchSingleUnit } from "../../../lib/data";
-import { updateUnit } from "../../../lib/actions";
+import { fetchRatingById } from "../../../lib/data";
+import styles from "../../../ui/dashboard/ratings/ratingDetail.module.css";
+import Image from "next/image";
 
-const SingleUnitPage = async ({ params }) => {
+const RatingDetailPage = async ({ params }) => {
   const { id } = params;
-  const unit = await fetchSingleUnit(id);
+
+  const rating = await fetchRatingById(id);
+  console.log(id);
+  console.log(rating);
+
+  if (!rating) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.formContainer}>
-        <form action={updateUnit} className={styles.form}>
-          <input type="hidden" name="id" value={unit.id}></input>
-          <label>ID</label>
-          <input type="number" placeholder={unit.unitId} name="unitId" />
-          <label>Name</label>
-          <input type="text" placeholder={unit.name} name="name" />
-          <label>Location</label>
-          <input type="text" placeholder={unit.location} name="location" />
-          <label>Area</label>
-          <select name="area" id="">
-            <option value="general">Choose an Area</option>
-            <option value="Sales" selected={unit.area === "Sales"}>
-              Sales
-            </option>
-            <option value="HR" selected={unit.area === "HR"}>
-              HR
-            </option>
-            <option value="Marketing" selected={unit.area === "Marketing"}>
-              Marketing
-            </option>
-            <option value="Controlling" selected={unit.area === "Controlling"}>
-              Controlling
-            </option>
-            <option value="Finance" selected={unit.area === "Finance"}>
-              Finance
-            </option>
-          </select>
-
-          <button type="submit">Update</button>
-        </form>
+      <div className={styles.header}>
+        <h1>Rating Details</h1>
+      </div>
+      <div className={styles.details}>
+        <div className={styles.userDetails}>
+          <Image
+            src={rating.user_id.img}
+            alt={`${rating.user_id.firstname} ${rating.user_id.lastname}`}
+            width={100}
+            height={150}
+          />
+          <h2>{`${rating.user_id.firstname} ${rating.user_id.lastname}`}</h2>
+          <p>Position: {rating.user_id.position}</p>
+          <p>Unit: {rating.user_id.unit}</p>
+        </div>
+        <div className={styles.ratingDetails}>
+          <h3>Rating</h3>
+          <p>
+            Score:{" "}
+            <span
+              style={{
+                color: rating.rating[0].totalScore > 70 ? "green" : "red",
+              }}
+            >
+              {rating.rating[0].totalScore}
+            </span>
+          </p>
+          <p>
+            Created At:{" "}
+            {new Date(rating.rating[0].createdAt).toLocaleDateString()}
+          </p>
+          <p>
+            Updated At:{" "}
+            {new Date(rating.rating[0].updatedAt).toLocaleDateString()}
+          </p>
+          {/* Weitere Rating-Details hier einfügen */}
+        </div>
       </div>
     </div>
   );
 };
 
-export default SingleUnitPage;
+export default RatingDetailPage;

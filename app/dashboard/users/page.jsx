@@ -64,6 +64,11 @@ const UsersPage = async ({ searchParams }) => {
                       View
                     </button>
                   </Link>
+                  <Link href={`/dashboard/users/rate/${user.id}`}>
+                    <button className={`${styles.button} ${styles.edit}`}>
+                      Rate
+                    </button>
+                  </Link>
                   <Link href={`/dashboard/users/edit/${user.id}`}>
                     <button className={`${styles.button} ${styles.edit}`}>
                       Edit

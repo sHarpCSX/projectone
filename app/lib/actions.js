@@ -1,4 +1,5 @@
 "use server";
+import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { User } from "./models/User";
@@ -7,7 +8,6 @@ import { connectToDB } from "./utils";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
 import Rating from "./models/Rating";
-import RatingDetail from "./models/RatingDetail";
 
 /* ------------------------ User ---------------------------------------- */
 
@@ -179,77 +179,72 @@ export const deleteUnit = async (formData) => {
 /* ------------------------ Rating ---------------------------------------- */
 
 export const addRating = async (formData) => {
-  const {
-    user_id,
-    social_behaviour,
-    social_feedback,
-    social_presence,
-    social_communication,
-    social_teamwork,
-    social_leadership,
-    social_adaptability,
-    kpi_Zielerreichung,
-    kpi_productivity,
-    kpi_efficiency,
-    kpi_innovation,
-    kpi_qualityOfWork,
-    kpi_punctuality,
-    kpi_clientSatisfaction,
-    additionalCriteria_initiative,
-    additionalCriteria_problemSolving,
-    additionalCriteria_dependability,
-    additionalCriteria_technicalSkills,
-    additionalCriteria_workEthic,
-    additionalCriteria_decisionMaking,
-  } = Object.fromEntries(formData);
+  const ObjectId = mongoose.Types.ObjectId;
+
+  const user_id = formData.get("user_id");
+
+  const social = {};
+  formData.forEach((value, key) => {
+    if (key.startsWith("social_")) {
+      social[key.substring(7)] = value;
+    }
+  });
+
+  const kpi = {};
+  formData.forEach((value, key) => {
+    if (key.startsWith("kpi_")) {
+      kpi[key.substring(4)] = value;
+    }
+  });
+
+  const additionalCriteria = {};
+  formData.forEach((value, key) => {
+    if (key.startsWith("additionalCriteria_")) {
+      additionalCriteria[key.substring(19)] = value;
+    }
+  });
+
+  const totalScore = Object.values(social)
+    .concat(Object.values(kpi))
+    .concat(Object.values(additionalCriteria))
+    .reduce((acc, cur) => acc + parseInt(cur), 0);
 
   try {
-    await connectToDB();
+    connectToDB();
 
-    const newRatingDetail = new RatingDetail({
-      social: {
-        behaviour: social_behaviour,
-        feedback: social_feedback,
-        presence: social_presence,
-        communication: social_communication,
-        teamwork: social_teamwork,
-        leadership: social_leadership,
-        adaptability: social_adaptability,
-      },
-      kpi: {
-        Zielerreichung: kpi_Zielerreichung,
-        productivity: kpi_productivity,
-        efficiency: kpi_efficiency,
-        innovation: kpi_innovation,
-        qualityOfWork: kpi_qualityOfWork,
-        punctuality: kpi_punctuality,
-        clientSatisfaction: kpi_clientSatisfaction,
-      },
-      additionalCriteria: {
-        initiative: additionalCriteria_initiative,
-        problemSolving: additionalCriteria_problemSolving,
-        dependability: additionalCriteria_dependability,
-        technicalSkills: additionalCriteria_technicalSkills,
-        workEthic: additionalCriteria_workEthic,
-        decisionMaking: additionalCriteria_decisionMaking,
-      },
-    });
+    let existingRating = await Rating.findOne({ user_id });
 
-    await newRatingDetail.save();
+    if (!existingRating) {
+      // Falls kein Rating vorhanden ist, ein neues erstellen
+      existingRating = new Rating({
+        user_id,
+        ratings: [], // Initialisierung von ratings
+      });
+    } else if (!existingRating.rating) {
+      // Falls das vorhandene Rating keine Bewertungen hat, ein leeres Array initialisieren
+      existingRating.rating = [];
+    }
 
-    const newRating = new Rating({
-      user_id,
-      rating: [newRatingDetail._id],
-    });
+    const newRating = {
+      _id: new ObjectId(),
+      createdAt: new Date(),
+      lastUpdated: new Date(),
+      social,
+      kpi,
+      additionalCriteria,
+      totalScore,
+    };
+    console.log(existingRating);
+    console.log(existingRating.rating);
+    existingRating.rating.push(newRating); // Hinzufügen des neuen Ratings zum Array
 
-    await newRating.save();
+    await existingRating.save();
   } catch (error) {
-    console.log(error);
+    console.log("Error creating rating:", error);
     throw new Error("Failed to create Rating!");
   }
 
   revalidatePath("/dashboard/ratings");
-  redirect("/dashboard/ratings");
 };
 
 /* ------------------------ Authentication ---------------------------------------- */

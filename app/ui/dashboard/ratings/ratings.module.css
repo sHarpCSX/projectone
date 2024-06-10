@@ -12,10 +12,12 @@
 
 .table {
   width: 100%;
+  border-collapse: collapse; /* Damit die Tabellenzellen sich nicht überlappen */
 }
 
 .table td {
-  padding: 5px;
+  padding: 10px; /* Padding erhöht, um den Inhalt besser sichtbar zu machen */
+  border: 1px solid var(--borderColor); /* Rand hinzugefügt */
 }
 
 .user {
@@ -27,7 +29,6 @@
 .userImage {
   object-fit: cover;
   clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-  /* border-radius: 50%; */
 }
 
 .status {
@@ -36,6 +37,7 @@
   color: white;
   text-align: center;
   width: 50px;
+  padding: 5px; /* Padding hinzugefügt, um den Inhalt zu zentrieren */
 }
 
 .pending {

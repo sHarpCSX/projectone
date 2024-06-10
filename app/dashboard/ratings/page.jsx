@@ -1,75 +1,68 @@
 import React from "react";
-import styles from "../../ui/dashboard/units/units.module.css";
-import Search from "../../ui/dashboard/search/search";
+import { fetchRatings } from "../../lib/data";
 import Link from "next/link";
 import Pagination from "../../ui/dashboard/pagination/pagination";
-import { fetchUnits } from "../../lib/data";
-import { deleteUnit } from "../../lib/actions";
+import styles from "../../ui/dashboard/ratings/ratings.module.css";
 
-const UnitsPage = async ({ searchParams }) => {
+const RatingsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  const { count, units } = await fetchUnits(q, page);
+  const { count, ratings } = await fetchRatings(q, page);
+
+  // Konvertiere das ratings-Objekt in ein flaches Array und behalte user_id bei
+  const flatRatings = ratings.reduce((acc, curr) => {
+    return [
+      ...acc,
+      ...curr.rating.map((r) => ({
+        ...r,
+        user_id: curr.user_id,
+        createdAt: r.createdAt,
+        totalScore: r.totalScore,
+      })),
+    ];
+  }, []);
+
+  // Sortiere die Bewertungen nach createdAt (jüngste zuerst)
+  const sortedRatings = flatRatings.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+
+  sortedRatings.forEach((element) => {
+    console.log(element.__parentArray[0]);
+  });
 
   return (
     <div className={styles.container}>
-      <div className={styles.top}>
-        <Search placeholder="Search for a unit ..." />
-        <Link href="/dashboard/ratings/add">
-          <button className={styles.addButton}>Add New</button>
-        </Link>
-      </div>
+      <h1>Ratings</h1>
       <table className={styles.table}>
         <thead>
           <tr>
-            <td>Unit-ID</td>
-            <td>Name</td>
-            <td>Area</td>
-            <td>Location</td>
-            <td>Personnel</td>
-            <td>Performance</td>
-            <td>Change</td>
-            <td>Action</td>
+            <th>User ID</th>
+            <th>Total Score</th>
+            <th>Created At</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {units.map((unit) => (
-            <tr key={unit.id}>
-              <td>{unit.unitId}</td>
+          {sortedRatings.map((rating, index) => (
+            <tr key={`${rating.user_id}-${index}`}>
+              <td>{rating.user_id.toString()}</td>
+              <td>{rating.totalScore}</td>
+              <td>{new Date(rating.createdAt).toString().slice(4, 24)}</td>
               <td>
-                <div className={styles.unit}>{unit.name}</div>
-              </td>
-              <td>{unit.area}</td>
-              <td>{unit.location}</td>
-              <td>?</td>
-              <td>
-                <span className={styles.performance}>?</span>
-              </td>
-              <td>
-                <span className={styles.changePositive}>+?</span>
-              </td>
-              <td>
-                <div className={styles.buttons}>
-                  <Link href={`/dashboard/units/${unit.id}`}>
-                    <button className={`${styles.button} ${styles.view}`}>
-                      View
-                    </button>
-                  </Link>
-                  <form action={deleteUnit}>
-                    <input type="hidden" name="id" value={unit.id}></input>
-                    <button className={`${styles.button} ${styles.delete}`}>
-                      Delete
-                    </button>
-                  </form>
-                </div>
+                <Link
+                  href={`/dashboard/ratings/${rating.__parentArray[0]._id}`}
+                >
+                  <button className={styles.button}>View Details</button>
+                </Link>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <Pagination count={count} />
+      <Pagination count={count} currentPage={page} />
     </div>
   );
 };
 
-export default UnitsPage;
+export default RatingsPage;
