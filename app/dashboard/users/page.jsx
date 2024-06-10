@@ -60,23 +60,23 @@ const UsersPage = async ({ searchParams }) => {
               <td>
                 <div className={styles.buttons}>
                   <Link href={`/dashboard/users/view/${user.id}`}>
-                    <button className={`${styles.button} ${styles.view}`}>
+                    <button className={`${styles.button} ${styles.btn}`}>
                       View
                     </button>
                   </Link>
                   <Link href={`/dashboard/users/rate/${user.id}`}>
-                    <button className={`${styles.button} ${styles.edit}`}>
+                    <button className={`${styles.button} ${styles.btn}`}>
                       Rate
                     </button>
                   </Link>
                   <Link href={`/dashboard/users/edit/${user.id}`}>
-                    <button className={`${styles.button} ${styles.edit}`}>
+                    <button className={`${styles.button} ${styles.btn}`}>
                       Edit
                     </button>
                   </Link>
                   <form action={deleteUser}>
                     <input type="hidden" name="id" value={user.id}></input>
-                    <button className={`${styles.button} ${styles.delete}`}>
+                    <button className={`${styles.button} ${styles.btn}`}>
                       Delete
                     </button>
                   </form>

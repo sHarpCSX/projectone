@@ -3,10 +3,10 @@ import { Unit } from "./models/Unit";
 import Rating from "./models/Rating";
 import { connectToDB } from "./utils";
 import mongoose from "mongoose";
+const ITEM_PER_PAGE = 10;
 
 export const fetchUsers = async (q, page) => {
   const regex = new RegExp(q, "i");
-  const ITEM_PER_PAGE = 2;
 
   try {
     connectToDB();
@@ -40,7 +40,7 @@ export const fetchSingleUser = async (id) => {
 
 export const fetchUnits = async (q, page) => {
   const regex = new RegExp(q, "i");
-  const ITEM_PER_PAGE = 2;
+
   try {
     connectToDB();
 
@@ -73,12 +73,12 @@ export const fetchSingleUnit = async (id) => {
 };
 
 export const fetchRatings = async (user_id, page) => {
-  const ITEM_PER_PAGE = 10;
-
   try {
     connectToDB();
 
-    const query = user_id ? { user_id: mongoose.Types.ObjectId(user_id) } : {};
+    const query = user_id
+      ? { user_id: new mongoose.Types.ObjectId(user_id) }
+      : {};
 
     const count = await Rating.countDocuments(query);
     const ratings = await Rating.find(query)
@@ -94,10 +94,18 @@ export const fetchRatings = async (user_id, page) => {
 
 export const fetchRatingById = async (id) => {
   try {
-    const rating = await Rating.findOne({ "rating._id": id })
-      .populate("user_id")
+    const rating = await Rating.find({})
+      .populate("user_id") // Hier das User-Objekt popeln
       .exec();
-    return rating;
+
+    if (!rating) {
+      return null; // Rating mit der ID wurde nicht gefunden
+    }
+
+    // Suche nach dem Rating innerhalb des Arrays ratings, das die gesuchte ID enthält
+    const foundRating = rating.ratings.find((r) => r._id.toString() === id);
+
+    return foundRating;
   } catch (error) {
     console.error(error);
     throw new Error("Failed to fetch rating!");

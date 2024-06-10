@@ -27,6 +27,9 @@
 .table td {
   padding: 10px;
 }
+.table tr:hover {
+  background-color: var(--bgHover);
+}
 .user {
   display: flex;
   align-items: center;
@@ -52,21 +55,9 @@
   cursor: pointer;
 }
 
-.view {
+.btn {
   /*   background-color: teal;
  */
-  background-color: rgb(74, 192, 5);
-}
-
-.rate {
-  background-color: rgb(186, 192, 5);
-}
-
-.edit {
-  /*   background-color: teal;
- */
-  background-color: rgb(54, 85, 197);
-}
-.delete {
-  background-color: crimson;
+  background-color: rgb(2, 2, 2);
+  color: white;
 }

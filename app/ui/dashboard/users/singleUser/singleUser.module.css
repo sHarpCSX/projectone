@@ -1,11 +1,13 @@
 .container {
   display: flex;
+  flex-direction: column;
   gap: 50px;
   margin-top: 20px;
 }
 
 .infoContainer {
-  flex: 1;
+  display: flex;
+  flex: 2;
   background-color: var(--bgSoft);
   padding: 20px;
   border-radius: 10px;
@@ -15,53 +17,41 @@
 }
 
 .imageContainer {
-  width: 100%;
+  width: 20%;
   height: 300px;
   position: relative;
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 20px;
 }
-.formContainer {
-  flex: 3;
-  background-color: var(--bgSoft);
-  padding: 20px;
-  border-radius: 10px;
-}
 
-.viewContainer {
+.userInfo {
   flex: 4;
+  padding: 20px;
+  margin-left: 2rem;
+  border-radius: 10px;
+  color: white;
+}
+
+.ratingsContainer {
   background-color: var(--bgSoft);
   padding: 20px;
   border-radius: 10px;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-}
-.form input,
-.form textarea,
-.form select {
-  padding: 20px;
-  border: 2px solid #2e374a;
-  border-radius: 5px;
-  background-color: var(--bg);
-  color: var(--text);
-  margin: 10px 0;
-}
-
-.form label {
-  font-size: 12px;
-}
-
-.form button {
+.table {
   width: 100%;
-  padding: 20px;
-  background-color: teal;
-  color: var(--text);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
 }

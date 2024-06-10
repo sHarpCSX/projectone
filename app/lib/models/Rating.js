@@ -11,7 +11,6 @@ const RatingSchema = new Schema(
     },
     rating: [
       {
-        _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
         social: {
           behaviour: { type: Number, required: true },
           feedback: { type: Number, required: true },

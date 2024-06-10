@@ -15,39 +15,15 @@
   border-collapse: collapse; /* Damit die Tabellenzellen sich nicht überlappen */
 }
 
+.table th {
+  text-align: left;
+}
+
 .table td {
   padding: 10px; /* Padding erhöht, um den Inhalt besser sichtbar zu machen */
   border: 1px solid var(--borderColor); /* Rand hinzugefügt */
 }
 
-.user {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.userImage {
-  object-fit: cover;
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-}
-
-.status {
-  border-radius: 5px;
-  font-size: 12px;
-  color: white;
-  text-align: center;
-  width: 50px;
-  padding: 5px; /* Padding hinzugefügt, um den Inhalt zu zentrieren */
-}
-
-.pending {
-  background-color: var(--statusPending);
-}
-
-.done {
-  background-color: var(--statusDone);
-}
-
-.cancelled {
-  background-color: var(--statusCancelled);
+.table tr:hover {
+  background-color: var(--bgHover);
 }

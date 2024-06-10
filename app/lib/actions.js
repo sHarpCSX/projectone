@@ -179,8 +179,6 @@ export const deleteUnit = async (formData) => {
 /* ------------------------ Rating ---------------------------------------- */
 
 export const addRating = async (formData) => {
-  const ObjectId = mongoose.Types.ObjectId;
-
   const user_id = formData.get("user_id");
 
   const social = {};
@@ -226,7 +224,6 @@ export const addRating = async (formData) => {
     }
 
     const newRating = {
-      _id: new ObjectId(),
       createdAt: new Date(),
       lastUpdated: new Date(),
       social,

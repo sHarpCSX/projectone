@@ -51,13 +51,13 @@ const UnitsPage = async ({ searchParams }) => {
               <td>
                 <div className={styles.buttons}>
                   <Link href={`/dashboard/units/${unit.id}`}>
-                    <button className={`${styles.button} ${styles.view}`}>
+                    <button className={`${styles.button} ${styles.btn}`}>
                       View
                     </button>
                   </Link>
                   <form action={deleteUnit}>
                     <input type="hidden" name="id" value={unit.id}></input>
-                    <button className={`${styles.button} ${styles.delete}`}>
+                    <button className={`${styles.button} ${styles.btn}`}>
                       Delete
                     </button>
                   </form>

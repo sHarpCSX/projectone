@@ -1,11 +1,21 @@
 import React from "react";
 import styles from "../../../../ui/dashboard/users/singleUser/singleUser.module.css";
 import Image from "next/image";
-import { fetchSingleUser } from "../../../../lib/data";
+import { fetchSingleUser, fetchRatings } from "../../../../lib/data";
+import Link from "next/link";
 
 const SingleUserPage = async ({ params }) => {
   const { id } = params;
   const user = await fetchSingleUser(id);
+  const { ratings } = await fetchRatings(id);
+
+  const calculateAverage = (criteria) => {
+    if (!criteria || typeof criteria !== "object") {
+      return 0;
+    }
+    const sum = Object.values(criteria).reduce((acc, value) => acc + value, 0);
+    return sum / Object.keys(criteria).length;
+  };
 
   return (
     <div className={styles.container}>
@@ -13,26 +23,58 @@ const SingleUserPage = async ({ params }) => {
         <div className={styles.imageContainer}>
           <Image src={user.img || "/noavatar.png"} alt="" fill />
         </div>
-        {user.firstname} {user.lastname}
+        <div className={styles.userInfo}>
+          <p>Firstname: {user.firstname} </p>
+          <p>Lastname: {user.lastname} </p>
+          <p>Email: {user.email}</p>
+          <p>Phone: {user.phone}</p>
+          <p>Position: {user.position}</p>
+          <p>Unit-ID: {user.unit}</p>
+          <p>Role: {user.role}</p>
+          <p>Status: {user.isActive ? "Active" : "Passive"}</p>
+        </div>
       </div>
-      <div className={styles.viewContainer}>
-        <p>Firstname: {user.firstname} </p>
-
-        <p>Lastname: {user.lastname} </p>
-
-        {/* <p>Date of Birth: {user.dob}</p> */}
-
-        <p>Email: {user.email}</p>
-
-        <p>Phone: {user.phone}</p>
-
-        <p>Position: {user.position}</p>
-
-        <p>Unit-ID: {user.unit}</p>
-
-        <p>Role: {user.role}</p>
-
-        <p>Status: {user.isActive ? "Active" : "Passive"}</p>
+      <div className={styles.ratingsContainer}>
+        <h2>Ratings</h2>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Rating ID</th>
+              <th>Created At</th>
+              <th>Average Social</th>
+              <th>Average KPI</th>
+              <th>Average Additional Criteria</th>
+              <th>Total Score</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.isArray(ratings) &&
+              ratings.map((ratingGroup) =>
+                ratingGroup.rating.map((rating, index) => (
+                  <tr key={index}>
+                    <td>{rating._id.toString()}</td>
+                    <td>{new Date(rating.createdAt).toLocaleDateString()}</td>
+                    <td>{calculateAverage(rating.social).toFixed(2)}</td>
+                    <td>{calculateAverage(rating.kpi).toFixed(2)}</td>
+                    <td>
+                      {calculateAverage(rating.additionalCriteria).toFixed(2)}
+                    </td>
+                    <td>{rating.totalScore}</td>
+                    <td>
+                      <Link
+                        href={`/dashboard/users/view/${
+                          user.id
+                        }/ratingview/${JSON.stringify(rating)}`}
+                      >
+                        View
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

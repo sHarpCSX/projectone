@@ -4,20 +4,19 @@ import Link from "next/link";
 import Pagination from "../../ui/dashboard/pagination/pagination";
 import styles from "../../ui/dashboard/ratings/ratings.module.css";
 
+// TODO: Sortierung Seitenübergreifend ermöglichen
+
 const RatingsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
   const { count, ratings } = await fetchRatings(q, page);
 
-  // Konvertiere das ratings-Objekt in ein flaches Array und behalte user_id bei
   const flatRatings = ratings.reduce((acc, curr) => {
     return [
       ...acc,
       ...curr.rating.map((r) => ({
         ...r,
         user_id: curr.user_id,
-        createdAt: r.createdAt,
-        totalScore: r.totalScore,
       })),
     ];
   }, []);
@@ -28,7 +27,7 @@ const RatingsPage = async ({ searchParams }) => {
   );
 
   sortedRatings.forEach((element) => {
-    console.log(element.__parentArray[0]);
+    console.log(element._doc);
   });
 
   return (
@@ -40,22 +39,14 @@ const RatingsPage = async ({ searchParams }) => {
             <th>User ID</th>
             <th>Total Score</th>
             <th>Created At</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {sortedRatings.map((rating, index) => (
+          {sortedRatings.reverse().map((rating, index) => (
             <tr key={`${rating.user_id}-${index}`}>
               <td>{rating.user_id.toString()}</td>
-              <td>{rating.totalScore}</td>
-              <td>{new Date(rating.createdAt).toString().slice(4, 24)}</td>
-              <td>
-                <Link
-                  href={`/dashboard/ratings/${rating.__parentArray[0]._id}`}
-                >
-                  <button className={styles.button}>View Details</button>
-                </Link>
-              </td>
+              <td>{rating._doc.totalScore}</td>
+              <td>{new Date(rating._doc.createdAt).toString().slice(4, 24)}</td>
             </tr>
           ))}
         </tbody>
