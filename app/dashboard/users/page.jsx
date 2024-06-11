@@ -27,7 +27,7 @@ const UsersPage = async ({ searchParams }) => {
             <td>Name</td>
             <td>Email</td>
             <td>Position</td>
-            <td>Created At</td>
+            {/* <td>Created At</td> */}
             <td>Role</td>
             <td>Unit-ID</td>
             <td>Status</td>
@@ -38,7 +38,7 @@ const UsersPage = async ({ searchParams }) => {
           {users.map((user) => (
             //TODO: userId anpassen
             <tr key={user.id}>
-              <td>{user.id}</td>
+              <td>{user.userId}</td>
               <td>
                 <div className={styles.user}>
                   <Image
@@ -53,7 +53,7 @@ const UsersPage = async ({ searchParams }) => {
               </td>
               <td>{user.email}</td>
               <td>{user.position}</td>
-              <td>{user.createdAt?.toString().slice(4, 16)}</td>
+              {/*  <td>{user.createdAt?.toString().slice(4, 16)}</td> */}
               <td>{user.role}</td>
               <td>{user.unit}</td>
               <td>{user.isActive ? "active" : "passive"}</td>

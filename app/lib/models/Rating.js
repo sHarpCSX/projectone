@@ -1,16 +1,23 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
-const RatingSchema = new Schema(
+const RatingSchema = new mongoose.Schema(
   {
-    user_id: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    rating: [
+    ratings: [
       {
+        ratingId: {
+          type: Number,
+          required: true,
+          unique: true,
+        },
+        ratingUserId: {
+          type: Number,
+          required: true,
+        },
         social: {
           behaviour: { type: Number, required: true },
           feedback: { type: Number, required: true },
@@ -46,5 +53,18 @@ const RatingSchema = new Schema(
   { timestamps: true }
 );
 
-const Rating = mongoose.models.Rating || mongoose.model("Rating", RatingSchema);
-export default Rating;
+RatingSchema.pre("save", async function (next) {
+  try {
+    this.ratings.forEach((rating, index) => {
+      if (!rating.ratingId) {
+        rating.ratingId = index + 1;
+      }
+    });
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+export const Rating =
+  mongoose.models.Rating || mongoose.model("Rating", RatingSchema);

@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
-  //TODO: Custom User-ID
   {
+    userId: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
     firstname: {
       type: String,
       required: true,

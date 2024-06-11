@@ -5,10 +5,13 @@ import styles from "../../../../ui/dashboard/users/singleUser/singleUser.module.
 import Image from "next/image";
 import { fetchSingleUser } from "../../../../lib/data";
 import RatingForm from "../../../../ui/dashboard/users/singleUser/rateUser/RatingForm";
+import { auth } from "../../../../auth";
 
 const SingleUserPage = async ({ params }) => {
   const { id } = params;
   const user = await fetchSingleUser(id);
+  const userSession = await auth();
+  const ratingUserId = userSession.userId;
 
   return (
     <div className={styles.container}>
@@ -19,7 +22,7 @@ const SingleUserPage = async ({ params }) => {
         {user.firstname} {user.lastname}
       </div>
       <div className={styles.formContainer}>
-        <RatingForm userId={user._id.toString()} />
+        <RatingForm userId={id} ratingUserId={ratingUserId} />
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import { User } from "./models/User";
 import { Unit } from "./models/Unit";
-import Rating from "./models/Rating";
+import { Rating } from "./models/Rating";
 import { connectToDB } from "./utils";
 import mongoose from "mongoose";
+
 const ITEM_PER_PAGE = 10;
 
 export const fetchUsers = async (q, page) => {
@@ -10,7 +11,6 @@ export const fetchUsers = async (q, page) => {
 
   try {
     connectToDB();
-
     const count = await User.find({
       $or: [{ firstname: { $regex: regex } }, { lastname: { $regex: regex } }],
     }).count();
@@ -43,7 +43,6 @@ export const fetchUnits = async (q, page) => {
 
   try {
     connectToDB();
-
     const count = await Unit.find({
       name: { $regex: regex },
     }).count();
@@ -63,25 +62,22 @@ export const fetchUnits = async (q, page) => {
 
 export const fetchSingleUnit = async (id) => {
   try {
-    connectToDB();
-    const singleUnit = await Unit.findById(id);
-    return singleUnit;
+    await connectToDB();
+    const unit = await Unit.findById(id).populate(
+      "manager contactPerson parentUnit"
+    );
+    return unit;
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch Single Unit!");
   }
 };
 
-export const fetchRatings = async (user_id, page) => {
+export const fetchRatings = async (page) => {
   try {
-    connectToDB();
-
-    const query = user_id
-      ? { user_id: new mongoose.Types.ObjectId(user_id) }
-      : {};
-
-    const count = await Rating.countDocuments(query);
-    const ratings = await Rating.find(query)
+    await connectToDB();
+    const count = await Rating.countDocuments();
+    const ratings = await Rating.find()
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1));
 
@@ -92,22 +88,33 @@ export const fetchRatings = async (user_id, page) => {
   }
 };
 
-export const fetchRatingById = async (id) => {
+export const fetchRatingsById = async (userId) => {
   try {
-    const rating = await Rating.find({})
-      .populate("user_id") // Hier das User-Objekt popeln
-      .exec();
-
-    if (!rating) {
-      return null; // Rating mit der ID wurde nicht gefunden
-    }
-
-    // Suche nach dem Rating innerhalb des Arrays ratings, das die gesuchte ID enthält
-    const foundRating = rating.ratings.find((r) => r._id.toString() === id);
-
-    return foundRating;
+    const ratings = await Rating.find({ userId: userId });
+    console.log(ratings);
+    return ratings;
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to fetch rating!");
+    throw new Error("Failed to fetch ratings!");
+  }
+};
+
+export const fetchSingleRatingById = async ({ userId, ratingId }) => {
+  try {
+    const ratingDoc = await Rating.findOne({ userId });
+    if (!ratingDoc) {
+      throw new Error("Benutzer nicht gefunden");
+    }
+    const rating = ratingDoc.ratings.find((r) =>
+      r._id.equals(new mongoose.Types.ObjectId(ratingId))
+    );
+    if (!rating) {
+      throw new Error("Rating mit der ID nicht gefunden");
+    }
+
+    return rating;
+  } catch (error) {
+    console.error("Fehler beim Abrufen des Ratings:", error);
+    throw new Error("Fehler beim Abrufen des Ratings");
   }
 };

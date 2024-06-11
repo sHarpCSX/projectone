@@ -12,31 +12,43 @@ const SingleUnitPage = async ({ params }) => {
         <form action={updateUnit} className={styles.form}>
           <input type="hidden" name="id" value={unit.id}></input>
           <label>ID</label>
-          <input type="number" placeholder={unit.unitId} name="unitId" />
+          <input
+            type="number"
+            placeholder={unit.unitId}
+            name="unitId"
+            readOnly
+          />
           <label>Name</label>
-          <input type="text" placeholder={unit.name} name="name" />
+          <input type="text" defaultValue={unit.name} name="name" />
           <label>Location</label>
-          <input type="text" placeholder={unit.location} name="location" />
+          <input type="text" defaultValue={unit.location} name="location" />
           <label>Area</label>
-          <select name="area" id="">
-            <option value="general">Choose an Area</option>
-            <option value="Sales" selected={unit.area === "Sales"}>
-              Sales
-            </option>
-            <option value="HR" selected={unit.area === "HR"}>
-              HR
-            </option>
-            <option value="Marketing" selected={unit.area === "Marketing"}>
-              Marketing
-            </option>
-            <option value="Controlling" selected={unit.area === "Controlling"}>
-              Controlling
-            </option>
-            <option value="Finance" selected={unit.area === "Finance"}>
-              Finance
-            </option>
+          <select name="area" defaultValue={unit.area}>
+            <option value="Sales">Sales</option>
+            <option value="HR">HR</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Controlling">Controlling</option>
+            <option value="Finance">Finance</option>
           </select>
-
+          <label>Manager</label>
+          <input type="number" defaultValue={unit.manager} name="manager" />
+          <label>Contact Person</label>
+          <input
+            type="number"
+            defaultValue={unit.contactPerson}
+            name="contactPerson"
+          />
+          <label>Description</label>
+          <textarea
+            defaultValue={unit.description}
+            name="description"
+          ></textarea>
+          <label>Parent Unit</label>
+          <input
+            type="number"
+            defaultValue={unit.parentUnit}
+            name="parentUnit"
+          />
           <button type="submit">Update</button>
         </form>
       </div>

@@ -6,19 +6,21 @@ const addUnitPage = () => {
   return (
     <div className={styles.container}>
       <form action={addUnit} className={styles.form}>
-        <input type="number" placeholder="ID" name="unitId" required />
         <input type="text" placeholder="Name" name="name" required />
-        <input type="text" placeholder="Location" name="location" />
-        <select name="area">
-          <option value="general" selected>
-            Choose an Area
-          </option>
+        <input type="text" placeholder="Location" name="location" required />
+        <select name="area" required>
+          <option value="">Choose an Area</option>
           <option value="Sales">Sales</option>
           <option value="HR">HR</option>
           <option value="Marketing">Marketing</option>
           <option value="Controlling">Controlling</option>
           <option value="Finance">Finance</option>
         </select>
+        {/* Additional fields */}
+        <input type="text" placeholder="Manager" name="manager" />
+        <input type="text" placeholder="Contact Person" name="contactPerson" />
+        <input type="text" placeholder="Description" name="description" />
+        <input type="text" placeholder="Parent Unit" name="parentUnit" />
 
         <button type="submit">Submit</button>
       </form>

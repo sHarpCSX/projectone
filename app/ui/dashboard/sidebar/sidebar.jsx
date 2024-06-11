@@ -30,21 +30,25 @@ const menuItems = [
         title: "Users",
         path: "/dashboard/users",
         icon: <MdSupervisedUserCircle />,
+        roles: ["Admin"],
       },
       {
         title: "Units",
         path: "/dashboard/units",
         icon: <FaUnity />,
+        roles: ["Admin", "User"],
       },
       {
         title: "Ratings",
         path: "/dashboard/ratings",
         icon: <MdAttachMoney />,
+        roles: ["Admin"],
       },
       {
         title: "Ranking",
         path: "/dashboard/ranking",
         icon: <FaRankingStar />,
+        roles: ["Admin", "User"],
       },
     ],
   },
@@ -55,16 +59,19 @@ const menuItems = [
         title: "Revenue",
         path: "/dashboard/revenue",
         icon: <MdWork />,
+        roles: ["Admin"],
       },
       {
         title: "Reports",
         path: "/dashboard/reports",
         icon: <MdAnalytics />,
+        roles: ["Admin"],
       },
       {
         title: "Teams",
         path: "/dashboard/teams",
         icon: <MdPeople />,
+        roles: ["Admin"],
       },
     ],
   },
@@ -75,11 +82,13 @@ const menuItems = [
         title: "Settings",
         path: "/dashboard/settings",
         icon: <MdOutlineSettings />,
+        roles: ["Admin", "User"],
       },
       {
         title: "Help",
         path: "/dashboard/help",
         icon: <MdHelpCenter />,
+        roles: ["Admin", "User"],
       },
     ],
   },
@@ -89,6 +98,7 @@ const Sidebar = async () => {
   const userName = userSession.firstname + " " + userSession.lastname;
   const userPosition = userSession.position;
   const userImage = userSession.user.img;
+  const userRole = userSession.user.role;
 
   return (
     <div className={styles.container}>
@@ -109,9 +119,11 @@ const Sidebar = async () => {
         {menuItems.map((cat) => (
           <li key={cat.title}>
             <span className={styles.cat}>{cat.title}</span>
-            {cat.list.map((item) => (
-              <MenuLink item={item} key={item.title} />
-            ))}
+            {cat.list
+              .filter((item) => !item.roles || item.roles.includes(userRole))
+              .map((item) => (
+                <MenuLink item={item} key={item.title} />
+              ))}
           </li>
         ))}
       </ul>
@@ -129,5 +141,4 @@ const Sidebar = async () => {
     </div>
   );
 };
-
 export default Sidebar;

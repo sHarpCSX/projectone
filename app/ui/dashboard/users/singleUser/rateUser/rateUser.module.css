@@ -76,10 +76,11 @@
 /* Slider specific styling */
 .rangeInput {
   flex: 2;
+  margin: 10px 0;
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 5px;
+  height: 15px;
   border-radius: 5px;
   background: #ddd;
   outline: none;
@@ -89,6 +90,7 @@
 
 .rangeValue {
   flex: 1;
-  text-align: right;
+  text-align: center;
   width: 30px;
+  font-weight: bold;
 }

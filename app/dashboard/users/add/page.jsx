@@ -29,10 +29,10 @@ const addUserPage = () => {
         <input type="text" placeholder="Position" name="position" required />
         <input type="number" name="unit" placeholder="Unit-ID" required />
         <select name="role" id="role">
-          <option value="user">Choose a Role</option>
-          <option value="admin">Admin</option>
-          <option value="editor">Editor</option>
-          <option value="user">User</option>
+          <option value="User">Choose a Role</option>
+          <option value="Admin">Admin</option>
+          <option value="Editor">Editor</option>
+          <option value="User">User</option>
         </select>
         <select name="isActive" id="isActive">
           <option value={true}>Is Active?</option>

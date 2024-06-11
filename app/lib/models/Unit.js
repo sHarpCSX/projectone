@@ -1,24 +1,16 @@
 import mongoose from "mongoose";
 
 const unitSchema = new mongoose.Schema(
-  //TODO: Custom Unit-ID
   {
-    unitId: { type: Number, required: true },
-    name: {
-      type: String,
-      required: true,
-      min: 2,
-    },
-    location: {
-      type: String,
-      required: true,
-      min: 2,
-    },
-    area: {
-      type: String,
-      required: true,
-      min: 2,
-    },
+    unitId: { type: Number, unique: true, required: true },
+    name: { type: String, required: true, min: 2 },
+    location: { type: String, required: true, min: 2 },
+    area: { type: String, required: true, min: 2 },
+    manager: { type: Number }, // Manager der Einheit
+    employees: { type: Number, default: 0 }, // Mitarbeiter der Einheit
+    contactPerson: { type: Number }, // Kontaktperson für die Einheit
+    description: { type: String }, // Beschreibung der Einheit
+    parentUnit: { type: Number }, // Übergeordnete Einheit
   },
   { timestamps: true }
 );

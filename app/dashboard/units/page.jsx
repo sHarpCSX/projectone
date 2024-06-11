@@ -5,11 +5,14 @@ import Link from "next/link";
 import Pagination from "../../ui/dashboard/pagination/pagination";
 import { fetchUnits } from "../../lib/data";
 import { deleteUnit } from "../../lib/actions";
+import { auth } from "../../auth";
 
 const UnitsPage = async ({ searchParams }) => {
+  const userSession = await auth();
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
   const { count, units } = await fetchUnits(q, page);
+  const userRole = userSession.user.role;
 
   return (
     <div className={styles.container}>
@@ -41,7 +44,7 @@ const UnitsPage = async ({ searchParams }) => {
               </td>
               <td>{unit.area}</td>
               <td>{unit.location}</td>
-              <td>?</td>
+              <td>{unit.employees}</td>
               <td>
                 <span className={styles.performance}>?</span>
               </td>
@@ -50,17 +53,33 @@ const UnitsPage = async ({ searchParams }) => {
               </td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/dashboard/units/${unit.id}`}>
-                    <button className={`${styles.button} ${styles.btn}`}>
-                      View
-                    </button>
-                  </Link>
-                  <form action={deleteUnit}>
-                    <input type="hidden" name="id" value={unit.id}></input>
-                    <button className={`${styles.button} ${styles.btn}`}>
-                      Delete
-                    </button>
-                  </form>
+                  <div>
+                    {userRole !== "User" && (
+                      <div className={styles.buttonDiv}>
+                        <Link href={`/dashboard/units/${unit.id}`}>
+                          <button className={`${styles.button} ${styles.btn}`}>
+                            View
+                          </button>
+                        </Link>
+
+                        <form action={deleteUnit}>
+                          <input
+                            type="hidden"
+                            name="id"
+                            value={unit.id}
+                          ></input>
+                          <button className={`${styles.button} ${styles.btn}`}>
+                            Delete
+                          </button>
+                        </form>
+                      </div>
+                    )}
+                    <Link href={`/dashboard/units/rate/${unit.id}`}>
+                      <button className={`${styles.button} ${styles.btn}`}>
+                        Rate
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </td>
             </tr>

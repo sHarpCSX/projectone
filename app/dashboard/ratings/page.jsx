@@ -7,27 +7,23 @@ import styles from "../../ui/dashboard/ratings/ratings.module.css";
 // TODO: Sortierung Seitenübergreifend ermöglichen
 
 const RatingsPage = async ({ searchParams }) => {
-  const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  const { count, ratings } = await fetchRatings(q, page);
+  const { count, ratings } = await fetchRatings(page);
 
-  const flatRatings = ratings.reduce((acc, curr) => {
-    return [
-      ...acc,
-      ...curr.rating.map((r) => ({
-        ...r,
-        user_id: curr.user_id,
-      })),
-    ];
-  }, []);
+  console.log(ratings);
 
-  // Sortiere die Bewertungen nach createdAt (jüngste zuerst)
-  const sortedRatings = flatRatings.sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  const allRatingObjects = ratings?.length
+    ? ratings.reduce((acc, curr) => {
+        return [...acc, ...curr.ratings]; // Ändere curr.rating zu curr.ratings
+      }, [])
+    : [];
+
+  const sortedRatings = allRatingObjects.sort(
+    (a, b) => b.ratingId - a.ratingId
   );
 
   sortedRatings.forEach((element) => {
-    console.log(element._doc);
+    console.log(element);
   });
 
   return (
@@ -36,15 +32,15 @@ const RatingsPage = async ({ searchParams }) => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>User ID</th>
+            <th>Rating ID</th>
             <th>Total Score</th>
             <th>Created At</th>
           </tr>
         </thead>
         <tbody>
-          {sortedRatings.reverse().map((rating, index) => (
+          {sortedRatings.map((rating, index) => (
             <tr key={`${rating.user_id}-${index}`}>
-              <td>{rating.user_id.toString()}</td>
+              <td>{rating._id.toString()}</td>
               <td>{rating._doc.totalScore}</td>
               <td>{new Date(rating._doc.createdAt).toString().slice(4, 24)}</td>
             </tr>

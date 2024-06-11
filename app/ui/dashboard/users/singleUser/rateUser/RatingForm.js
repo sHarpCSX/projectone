@@ -5,7 +5,7 @@ import styles from "./rateUser.module.css";
 import { addRating } from "../../../../../lib/actions";
 import PaginationSection from "../../../paginationSection/paginationSection";
 
-const RatingForm = ({ userId }) => {
+const RatingForm = ({ userId, ratingUserId }) => {
   const [currentSection, setCurrentSection] = useState(1);
 
   const [socialValues, setSocialValues] = useState({
@@ -86,7 +86,9 @@ const RatingForm = ({ userId }) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("user_id", userId);
+    formData.append("userId", userId); // Hinzufügen der userId
+
+    formData.append("ratingUserId", ratingUserId);
 
     Object.entries(socialValues).forEach(([key, value]) => {
       formData.append(`social_${key}`, value);
