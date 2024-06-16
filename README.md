@@ -1,6 +1,6 @@
-# README für Projekt 1: Bidirektionale Bewertungsanwendung für Unternehmensakteure
+# README für Projekt 1: Webanwendung zur bidirektionalen Bewertung von Unternehmensakteuren
 
-Dies ist die README-Datei für das Studienprojekt im Modul "Angewandte Informatik". Das Projekt, bekannt als "Projekt 1", umfasst die Entwicklung einer bidirektionalen Bewertungsanwendung für Unternehmensakteure. Diese Anwendung wird über npm ausgeführt und zielt darauf ab, eine Plattform bereitzustellen, auf der sowohl Mitarbeiter als auch Unternehmen Feedback austauschen können.
+Dies ist die README-Datei für das Studienprojekt im Modul "Angewandte Informatik". Das Projekt, bekannt als "Projekt 1", umfasst die Entwicklung einer Webanwendung zur bidirektionalen Bewertung von Unternehmensakteuren. Diese Anwendung wird über npm ausgeführt und zielt darauf ab, eine Plattform bereitzustellen, auf der sowohl Mitarbeiter als auch Unternehmen Feedback austauschen können.
 
 ## Projektübersicht
 
