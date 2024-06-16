@@ -54,4 +54,4 @@ PS: Bitte beachten !!!
 AUTH_SECRET=<herecomesakey>
 AUTH_URL=http://localhost:3000/api/auth"
 
-- es findet ein Authentifizierungsprozess statt. Diese muss (bis zur abschließenden Präsentation) im Code manuell untebrochen werden.
+- es findet ein Authentifizierungsprozess statt. Dieser muss (bis zur abschließenden Präsentation) im Code manuell unterbrochen werden.
