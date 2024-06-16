@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Willkommen zur README für Projekt 1: Bidirektionale Bewertungsanwendung für Unternehmensakteure
 
-## Getting Started
+Dies ist die README-Datei für das Studienprojekt im Modul "Angewandte Informatik". Das Projekt, bekannt als "Projekt 1", umfasst die Entwicklung einer bidirektionalen Bewertungsanwendung für Unternehmensakteure. Diese Anwendung wird über npm ausgeführt und zielt darauf ab, eine Plattform bereitzustellen, auf der sowohl Mitarbeiter als auch Unternehmen Feedback austauschen können.
 
-First, run the development server:
+Projektübersicht
+Das Ziel des Projekts ist es, eine Softwarelösung zu entwickeln, die es Unternehmen ermöglicht, die Leistung ihrer Mitarbeiter objektiv zu bewerten und gleichzeitig subjektives Feedback der Mitarbeiter zu Unternehmenskultur, Arbeitsbedingungen und Führung zu erfassen. Die Anwendung soll umfassende Bewertungen ermöglichen, die zur Identifizierung von Stärken und Schwächen des Unternehmens beitragen und gezielte Entwicklungsmaßnahmen unterstützen.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Technologien
+Die Anwendung wird mit folgenden Technologien entwickelt und betrieben:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+npm: Als Paketmanager zur Verwaltung von Abhängigkeiten und zur Ausführung der Anwendung.
+JavaScript/Node.js: Die Hauptprogrammiersprache und Laufzeitumgebung für die Backend-Entwicklung.
+MongoDB: Eine NoSQL-Datenbank für die Speicherung von Benutzer- und Abteilungsdaten sowie Bewertungen.
+Next.js: Ein React-Framework für die Entwicklung von Webanwendungen, das Modularität und einfache Wartung ermöglicht.
+Installation
+Um das Projekt lokal auszuführen, führen Sie folgende Schritte aus:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Clone das Repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+bash
+Code kopieren
+git clone https://github.com/dein-benutzername/projekt-1.git
+cd projekt-1
+Installiere Abhängigkeiten:
 
-## Learn More
+bash
+Code kopieren
+npm install
+Starte die Anwendung:
 
-To learn more about Next.js, take a look at the following resources:
+bash
+Code kopieren
+npm start
+Öffne deinen Browser und gehe zu http://localhost:3000, um die Anwendung zu verwenden.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Autor
+Marco Berg - Student
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Vielen Dank für Ihr Interesse an meinem Projekt!
