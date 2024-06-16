@@ -19,21 +19,21 @@ Die Anwendung wird mit folgenden Technologien entwickelt und betrieben:
 
 Um das Projekt lokal auszuführen, führen Sie folgende Schritte aus:
 
-1. **Clone das Repository**:
+1. **Repository klonen**:
 
 ```bash
 git clone https://github.com/sHarpCSX/projectone.git
 cd projectone
 ```
 
-2. **Installiere Abhängigkeiten**:
+2. **Abhängigkeiten installieren**:
    Führen Sie den folgenden Befehl aus, um alle erforderlichen Pakete zu installieren:
 
 ```bash
 npm install
 ```
 
-3. **Starte die Anwendung**:
+3. **Anwendung starten**:
    Nach der Installation der Abhängigkeiten können Sie die Anwendung starten:
 
 ```bash
