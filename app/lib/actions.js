@@ -1,5 +1,4 @@
 "use server";
-import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { User } from "./models/User";
@@ -8,6 +7,8 @@ import { connectToDB } from "./utils";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
 import { Rating } from "./models/Rating";
+import { UnitRating } from "./models/UnitRating";
+import mongoose from "mongoose";
 
 /* ------------------------ User ---------------------------------------- */
 
@@ -365,6 +366,126 @@ export const addRating = async (formData) => {
   revalidatePath("/dashboard/ratings");
   redirect("/dashboard/ratings");
 };
+
+export const deleteRating = async (formData) => {
+  const { id } = Object.fromEntries(formData);
+  console.log("ID received:", id); // Log the received ID
+
+  try {
+    await connectToDB();
+    console.log("Connected to DB");
+
+    // Convert the ID to a MongoDB ObjectId
+    const objectId = new mongoose.Types.ObjectId(id);
+    console.log("Converted ID to ObjectId:", objectId);
+
+    // Find and remove the specific rating from the ratings array
+    const result = await Rating.updateOne(
+      { "ratings._id": objectId },
+      { $pull: { ratings: { _id: objectId } } }
+    );
+
+    if (result.nModified === 0) {
+      console.error("Rating not found with ID:", id);
+      throw new Error("Rating not found");
+    }
+
+    console.log("Rating deleted:", objectId);
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to delete Rating!");
+  }
+
+  revalidatePath(`/dashboard/users/view`);
+};
+
+/* ------------------------ UnitRating ---------------------------------------- */
+
+export const addUnitRating = async (formData) => {
+  const unitId = formData.get("unitId");
+  const ratingUserId = formData.get("ratingUserId");
+
+  const goals = {};
+  formData.forEach((value, key) => {
+    if (key.startsWith("goals_")) {
+      goals[key.substring(6)] = value;
+    }
+  });
+
+  const environment = {};
+  formData.forEach((value, key) => {
+    if (key.startsWith("environment_")) {
+      environment[key.substring(12)] = value;
+    }
+  });
+
+  const management = {};
+  formData.forEach((value, key) => {
+    if (key.startsWith("management_")) {
+      management[key.substring(11)] = value;
+    }
+  });
+
+  const additionalCriteria = {};
+  formData.forEach((value, key) => {
+    if (key.startsWith("additionalCriteria_")) {
+      additionalCriteria[key.substring(19)] = value;
+    }
+  });
+
+  const totalScore = Object.values(goals)
+    .concat(Object.values(environment))
+    .concat(Object.values(management))
+    .concat(Object.values(additionalCriteria))
+    .reduce((acc, cur) => acc + parseInt(cur), 0);
+
+  try {
+    await connectToDB();
+
+    // Find existing rating entry for the unit
+    let existingRating = await UnitRating.findOne({ unitId });
+
+    // If no existing entry, create a new one
+    if (!existingRating) {
+      existingRating = new UnitRating({
+        unitId,
+        ratings: [],
+      });
+    }
+
+    // Find the highest existing ratingId in the UnitRating collection
+    const maxRatingId = await UnitRating.aggregate([
+      { $unwind: "$ratings" },
+      { $group: { _id: null, maxRatingId: { $max: "$ratings.ratingId" } } },
+    ]);
+
+    const newRatingId =
+      maxRatingId.length > 0 ? maxRatingId[0].maxRatingId + 1 : 1;
+
+    const newRating = {
+      ratingId: newRatingId,
+      ratingUserId,
+      goals,
+      environment,
+      management,
+      additionalCriteria,
+      totalScore,
+    };
+
+    // Add the new rating to the existing ratings array
+    existingRating.ratings.push(newRating);
+
+    // Save the updated rating entry
+    await existingRating.save();
+  } catch (error) {
+    console.log("Error creating unit rating:", error);
+    throw new Error("Failed to create unit rating!");
+  }
+
+  revalidatePath("/dashboard/units");
+  redirect("/dashboard/units");
+};
+
 /* ------------------------ Authentication ---------------------------------------- */
 
 export const authenticate = async (prevState, formData) => {

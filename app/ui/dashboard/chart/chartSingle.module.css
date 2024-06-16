@@ -1,0 +1,16 @@
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  margin-left: 50px;
+  width: 80%;
+}
+
+.title {
+  font-weight: 200;
+  color: var(--textSoft);
+  margin-bottom: 10px;
+}

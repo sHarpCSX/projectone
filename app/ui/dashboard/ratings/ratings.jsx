@@ -38,7 +38,7 @@ const Ratings = () => {
                   height={40}
                   className={styles.userImage}
                 />
-                <span>Hive Technologies GmbH</span>
+                <span>Sales</span>
               </div>
             </td>
             <td className={`${styles.status} ${styles.pending}`}>Pending</td>

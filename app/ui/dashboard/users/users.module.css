@@ -33,7 +33,7 @@
 .user {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .userImage {
@@ -60,4 +60,8 @@
  */
   background-color: rgb(2, 2, 2);
   color: white;
+}
+
+.performance {
+  text-align: center;
 }

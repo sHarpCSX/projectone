@@ -19,7 +19,7 @@ const RatingDetailPage = async ({ params }) => {
   return (
     <div className={styles.container}>
       <h2>Rating Detail Page</h2>
-      <p>Rating ID: {rating._id.toString()}</p>
+      <p>Rating ID: {rating.ratingId.toString()}</p>
       <p>Created At: {new Date(rating.createdAt).toLocaleDateString()}</p>
 
       <div className={styles.ratingsContainer}>
@@ -129,14 +129,17 @@ const RatingDetailPage = async ({ params }) => {
             </tbody>
           </table>
         </div>
-
-        {/* Total Score */}
-        <div className={styles.criteriaContainer}>
-          <h3>Total Score</h3>
-          <p>Total Score: {rating.totalScore}</p>
+        <div>
+          {/* Total Score */}
+          <div className={styles.criteriaContainer}>
+            <h3>Total Score</h3>
+            <p>Total Score: {rating.totalScore}</p>
+          </div>
+          <button className={`${styles.button_view}`}>
+            <Link href={`/dashboard/users/view/${id}`}>Back</Link>
+          </button>
         </div>
       </div>
-      <Link href={`/dashboard/users/view/${id}`}>Back to User</Link>
     </div>
   );
 };

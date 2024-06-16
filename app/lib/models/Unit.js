@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const unitSchema = new mongoose.Schema(
+const UnitSchema = new mongoose.Schema(
   {
-    unitId: { type: Number, unique: true, required: true },
+    unitId: { type: Number, required: true, unique: true },
     name: { type: String, required: true, min: 2 },
     location: { type: String, required: true, min: 2 },
     area: { type: String, required: true, min: 2 },
@@ -15,4 +15,4 @@ const unitSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Unit = mongoose.models.Unit || mongoose.model("Unit", unitSchema);
+export const Unit = mongoose.models.Unit || mongoose.model("Unit", UnitSchema);

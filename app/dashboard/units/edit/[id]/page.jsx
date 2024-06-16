@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "../../../ui/dashboard/units/singleUnit/singleUnit.module.css";
-import { fetchSingleUnit } from "../../../lib/data";
-import { updateUnit } from "../../../lib/actions";
+import styles from "../../../../ui/dashboard/units/singleUnit/singleUnit.module.css";
+import { fetchSingleUnit } from "../../../../lib/data";
+import { updateUnit } from "../../../../lib/actions";
 
 const SingleUnitPage = async ({ params }) => {
   const { id } = params;

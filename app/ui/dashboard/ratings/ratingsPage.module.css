@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.table {
+  flex: 2;
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+  height: max-content;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+}
+
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+}
+
+.button {
+  margin-top: 10px;
+  .container {
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .title {
+    margin-bottom: 20px;
+    font-weight: 200;
+    color: var(--textSoft);
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse; /* Damit die Tabellenzellen sich nicht überlappen */
+  }
+
+  .table th {
+    text-align: left;
+  }
+
+  .table td {
+    padding: 10px; /* Padding erhöht, um den Inhalt besser sichtbar zu machen */
+    border: 1px solid var(--borderColor); /* Rand hinzugefügt */
+  }
+
+  .table tr:hover {
+    background-color: var(--bgHover);
+  }
+
+  padding: 5px 10px;
+  cursor: pointer;
+}

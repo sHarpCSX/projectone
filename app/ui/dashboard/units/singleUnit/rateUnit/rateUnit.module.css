@@ -1,0 +1,96 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 600px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.formLabel {
+  flex: 1;
+}
+
+.rangeInput {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.rangeContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rangeValue {
+  margin-left: 10px;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Slider specific styling */
+.rangeInput {
+  flex: 2;
+  margin: 10px 0;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.rangeValue {
+  flex: 1;
+  text-align: center;
+  width: 30px;
+  font-weight: bold;
+}

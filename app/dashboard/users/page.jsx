@@ -31,13 +31,13 @@ const UsersPage = async ({ searchParams }) => {
             <td>Role</td>
             <td>Unit-ID</td>
             <td>Status</td>
+            <td>Performance</td>
             <td>Action</td>
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
-            //TODO: userId anpassen
-            <tr key={user.id}>
+          {users.map((user, index) => (
+            <tr key={index}>
               <td>{user.userId}</td>
               <td>
                 <div className={styles.user}>
@@ -57,25 +57,30 @@ const UsersPage = async ({ searchParams }) => {
               <td>{user.role}</td>
               <td>{user.unit}</td>
               <td>{user.isActive ? "active" : "passive"}</td>
+              <td className={styles.performance}>{user.averageTotalScore}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/dashboard/users/view/${user.id}`}>
+                  <Link href={`/dashboard/users/view/${user._id}`}>
                     <button className={`${styles.button} ${styles.btn}`}>
                       View
                     </button>
                   </Link>
-                  <Link href={`/dashboard/users/rate/${user.id}`}>
+                  <Link href={`/dashboard/users/rate/${user._id}`}>
                     <button className={`${styles.button} ${styles.btn}`}>
                       Rate
                     </button>
                   </Link>
-                  <Link href={`/dashboard/users/edit/${user.id}`}>
+                  <Link href={`/dashboard/users/edit/${user._id}`}>
                     <button className={`${styles.button} ${styles.btn}`}>
                       Edit
                     </button>
                   </Link>
                   <form action={deleteUser}>
-                    <input type="hidden" name="id" value={user.id}></input>
+                    <input
+                      type="hidden"
+                      name="id"
+                      value={user._id.toString()}
+                    ></input>
                     <button className={`${styles.button} ${styles.btn}`}>
                       Delete
                     </button>

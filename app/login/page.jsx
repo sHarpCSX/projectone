@@ -8,7 +8,7 @@ const LoginPage = () => {
     <div className={styles.container}>
       <Image
         src="/logo.png"
-        alt=""
+        alt="logo"
         width={450}
         height={100}
         className={styles.logo}

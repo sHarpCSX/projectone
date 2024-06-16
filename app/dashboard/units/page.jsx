@@ -36,8 +36,8 @@ const UnitsPage = async ({ searchParams }) => {
           </tr>
         </thead>
         <tbody>
-          {units.map((unit) => (
-            <tr key={unit.id}>
+          {units.map((unit, index) => (
+            <tr key={index}>
               <td>{unit.unitId}</td>
               <td>
                 <div className={styles.unit}>{unit.name}</div>
@@ -46,7 +46,9 @@ const UnitsPage = async ({ searchParams }) => {
               <td>{unit.location}</td>
               <td>{unit.employees}</td>
               <td>
-                <span className={styles.performance}>?</span>
+                <span className={styles.performance}>
+                  {unit.averageTotalScore}
+                </span>
               </td>
               <td>
                 <span className={styles.changePositive}>+?</span>
@@ -56,9 +58,15 @@ const UnitsPage = async ({ searchParams }) => {
                   <div>
                     {userRole !== "User" && (
                       <div className={styles.buttonDiv}>
-                        <Link href={`/dashboard/units/${unit.id}`}>
+                        <Link href={`/dashboard/units/view/${unit._id}`}>
                           <button className={`${styles.button} ${styles.btn}`}>
                             View
+                          </button>
+                        </Link>
+
+                        <Link href={`/dashboard/units/edit/${unit._id}`}>
+                          <button className={`${styles.button} ${styles.btn}`}>
+                            Edit
                           </button>
                         </Link>
 
@@ -66,7 +74,7 @@ const UnitsPage = async ({ searchParams }) => {
                           <input
                             type="hidden"
                             name="id"
-                            value={unit.id}
+                            value={unit._id.toString()}
                           ></input>
                           <button className={`${styles.button} ${styles.btn}`}>
                             Delete
@@ -74,7 +82,7 @@ const UnitsPage = async ({ searchParams }) => {
                         </form>
                       </div>
                     )}
-                    <Link href={`/dashboard/units/rate/${unit.id}`}>
+                    <Link href={`/dashboard/units/rate/${unit._id}`}>
                       <button className={`${styles.button} ${styles.btn}`}>
                         Rate
                       </button>

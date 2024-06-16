@@ -1,24 +1,26 @@
 .container {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  gap: 50px;
   margin-top: 20px;
 }
 
-.ratingsContainer {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  justify-content: space-evenly;
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
   background-color: var(--bgSoft);
   padding: 20px;
   border-radius: 10px;
+  font-weight: bold;
+  color: white;
+  height: max-content;
 }
 
-.criteriaContainer {
+.ratingsContainer {
+  background-color: var(--bgSoft);
   padding: 20px;
   border-radius: 10px;
-  border: 1px solid black;
 }
 
 .table {
@@ -26,6 +28,7 @@
   border-collapse: collapse;
 }
 
+.table th,
 .table td {
   padding: 8px;
 }
@@ -36,7 +39,7 @@
   text-align: left;
 }
 
-.button_view {
+.button {
   margin-top: 10px;
   padding: 5px 10px;
   cursor: pointer;
