@@ -50,8 +50,8 @@ Vielen Dank für Ihr Interesse an meinem Projekt!
 PS: Bitte beachten !!!
 - es ist notwendig, im app-Verzeichnis eine eigene .env-Datei zu erstellen. Diese könnte wie folgt aussehen:
   
-"DATABASE_URI=mongodb+srv://<user>:<password>@cluster0.wqmjt60.mongodb.net/hiveDB?retryWrites=true&w=majority
-AUTH_SECRET=<herecomesakey>
+"DATABASE_URI=mongodb+srv://user:password@cluster0.wqmjt60.mongodb.net/hiveDB?retryWrites=true&w=majority
+AUTH_SECRET=herecomesakey
 AUTH_URL=http://localhost:3000/api/auth"
 
 - es findet ein Authentifizierungsprozess statt. Dieser muss (bis zur abschließenden Präsentation) im Code manuell unterbrochen werden.
