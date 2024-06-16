@@ -27,6 +27,7 @@ cd projectone
 ```
 
 2. **Abhängigkeiten installieren**:
+
    Führen Sie den folgenden Befehl aus, um alle erforderlichen Pakete zu installieren:
 
 ```bash
@@ -34,6 +35,7 @@ npm install
 ```
 
 3. **Anwendung starten**:
+
    Nach der Installation der Abhängigkeiten können Sie die Anwendung starten:
 
 ```bash
