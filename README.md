@@ -1,6 +1,6 @@
 # README für Projekt 1: Webanwendung zur bidirektionalen Bewertung von Unternehmensakteuren
 
-Dies ist die README-Datei für das Studienprojekt im Modul "Angewandte Informatik". Das Projekt, bekannt als "Projekt 1", umfasst die Entwicklung einer Webanwendung zur bidirektionalen Bewertung von Unternehmensakteuren. Diese Anwendung wird über npm ausgeführt und zielt darauf ab, eine Plattform bereitzustellen, auf der sowohl Mitarbeiter als auch Unternehmen Feedback austauschen können.
+Dies ist die README-Datei für das Studienprojekt im Modul "Angewandte Informatik" an der Hochschule Wismar. Das Projekt, bekannt als "Projekt 1", umfasst die Entwicklung einer Webanwendung zur bidirektionalen Bewertung von Unternehmensakteuren. Diese Anwendung wird über npm ausgeführt und zielt darauf ab, eine Plattform bereitzustellen, auf der sowohl Mitarbeiter als auch Unternehmen Feedback austauschen können.
 
 ## Projektübersicht
 
@@ -42,7 +42,16 @@ npm start
 
 Die Anwendung wird unter http://localhost:3000 gestartet.
 
-Autor
+(Bitte beachten: 
+- es ist notwendig, im app-Verzeichnis eine eigene .env-Datei zu erstellen. Diese könnte wie folgt aussehen:
+  
+DATABASE_URI=mongodb+srv://<user>:<password>@cluster0.wqmjt60.mongodb.net/hiveDB?retryWrites=true&w=majority
+AUTH_SECRET=<herecomesakey>
+AUTH_URL=http://localhost:3000/api/auth
+
+- es findet ein Authentifizierungsprozess statt. Diese muss (bis zur abschließenden Präsentation) im Code manuell untebrochen werden.
+
+Autor:
 Marco Berg - Student
 
 Vielen Dank für Ihr Interesse an meinem Projekt!
