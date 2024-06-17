@@ -29,10 +29,11 @@
 }
 
 .positive {
-  color: rgb(114, 231, 78);
+  color: rgb(36, 113, 12);
   font-weight: bold;
 }
 
-.negativ {
-  color: crimson;
+.negative {
+  color: rgb(146, 22, 47);
+  font-weight: bold;
 }

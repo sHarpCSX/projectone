@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./card.module.css";
 import { MdSupervisedUserCircle } from "react-icons/md";
 
-const Card = () => {
+const Card1 = () => {
   return (
     <div className={styles.container}>
       <MdSupervisedUserCircle size={24} />
@@ -17,4 +17,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default Card1;

@@ -84,6 +84,7 @@ export const updateUser = async (formData) => {
     isActive,
   } = Object.fromEntries(formData);
 
+
   try {
     connectToDB();
 

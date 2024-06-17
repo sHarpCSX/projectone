@@ -17,7 +17,12 @@ const SingleUserPage = async ({ params }) => {
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.imageContainer}>
-          <Image src={user.img || "/noavatar.png"} alt="" fill />
+          <Image
+            src={user.img || "/noavatar.png"}
+            alt=""
+            width={200}
+            height={300}
+          />
         </div>
         {user.firstname} {user.lastname}
       </div>
