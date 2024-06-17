@@ -13,43 +13,37 @@ import {
 
 const data = [
   {
-    name: "Page A",
-    hr: 40,
-    employee: 24,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
+    name: "January",
     hr: 30,
     employee: 13,
     amt: 2210,
   },
   {
-    name: "Page C",
+    name: "February",
     hr: 20,
     employee: 98,
     amt: 2290,
   },
   {
-    name: "Page D",
+    name: "March",
     hr: 27,
     employee: 39,
     amt: 2000,
   },
   {
-    name: "Page E",
+    name: "April",
     hr: 18,
     employee: 48,
     amt: 2181,
   },
   {
-    name: "Page F",
+    name: "May",
     hr: 23,
     employee: 38,
     amt: 2500,
   },
   {
-    name: "Page G",
+    name: "June",
     hr: 34,
     employee: 43,
     amt: 2100,
@@ -58,7 +52,7 @@ const data = [
 const Chart = () => {
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Weekly Recap</h2>
+      <h2 className={styles.title}>Monthly Recap</h2>
       <ResponsiveContainer width="100%" height="90%">
         <LineChart
           width={500}
